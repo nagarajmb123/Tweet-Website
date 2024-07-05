@@ -10,8 +10,12 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET); // Debug log
 // Signup route
 router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
-  console.log(name,email,password);
-  
+
+  // Check if any of the required fields are missing
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: 'Please provide name, email, and password' });
+  }
+
   try {
     // Check if user with the email already exists
     let user = await User.findOne({ email });
@@ -42,6 +46,11 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
+  // Check if email or password is missing
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Please provide email and password' });
+  }
+
   try {
     // Check if user exists
     const user = await User.findOne({ email });
@@ -66,5 +75,6 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 module.exports = router;
