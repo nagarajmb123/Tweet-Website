@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model.js');
 require('dotenv').config();
 
-console.log('JWT_SECRET:', process.env.JWT_SECRET); // Debug log
+console.log('JWT_SECRET:', process.env.JWT_SECRET); 
 
 // Signup route
 router.post('/signup', async (req, res) => {
